@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		body {
+			background-color: lemonchiffon;
+		}
+
+		form {
+			border: solid 1px black;
+		}
+
+		label {
+			display: inline-block;
+			width: 15ex;
+			background-color: lightcyan;
+			font: bold;
+			padding: 5px;
+			text-align: center;
+		}
+		form > div{
+			padding: 10px 	;
+		}
+		form > div:last-child{
+			text-align: right;
+		}
+	</style>
+</head>
+
+<body>
+	<form method="POST">
+		<h1>ユーザ情報の入力</h1>
+		<div>
+			<label for="username" class="label">user id</label>
+			<input type="text" placeholder="user id">
+		</div>
+		<div>
+			<label for="password" class="label"> password</label>
+			<input type="password" placeholder="Enter password">
+		</div>
+		<div>
+			<input type="submit" value="登録">
+		</div>
+		
+	</form>
+</body>
+
+</html>
