@@ -6,16 +6,26 @@ app = Flask( __name__ )
 
 DBname = "exampleDB.db"
 
+def view_sub():
+    strSQL = '''SELECT * FROM tusers'''
+    con =sqlite3.connect( DBname)
+    cur = con.cursor()
+    cur.execute( strSQL)
+    list = cur.fetchall()
+    con.close()
+    return list    
+
 @app.route( "/")
 def index():
     return render_template( "index.html", msg="/が指定されました", list="")
 
 @app.route( "/view/", methods=["POST"])
 def view():
+    list = view_sub()
+    print(list)
     return render_template( "index.html", msg="viewボタンが押されました。", list=list)
 
-@app.route( "/init/", methods=["POST"])
-def init():
+def init_sub():
     strSQL = '''CREATE TABLE IF NOT EXISTS tusers ( uid text, password text )'''
     strSQL2 = '''INSERT INTO tusers ( uid, password ) values ( "24000", "ueda" ) '''
 
@@ -28,12 +38,28 @@ def init():
     for row in c.execute( strSQL3 ):
         print( row )
     con.commit()                            # データベースに結果を反映させる
-    con.close()     
+    con.close()                             # 接続を切る
+
+@app.route( "/init/", methods=["POST"])
+def init():
+    init_sub()
     return render_template( "index.html", msg="initボタンが押されました。", list="")
+
+def append_sub():
+    if request.method == "POST":
+        print( request.form.uid )
+
+        # return "[OK]appendボタンが押されました"
+        return
+    else:
+
+        # return "[NG]appendボタンの登録で失敗しました"
+        return
 
 @app.route( "/append/", methods=["POST"])
 def append():
-    return render_template( "index.html", msg="appendボタンが押されました")
+    append_sub()
+    return render_template( "index.html", msg="appendボタンが押されました") 
 
 if __name__ == "__main__":
     app.run( port=8000, debug=True)
