@@ -1,36 +1,64 @@
-# filename : app.py
-from flask import Flask,render_template,request
-import flask, sqlite3
+# filename: app.py
+# パッケージの読み込み
+# Flask：Webアプリのフレームワーク
+# render_template：HTMLの中に文字列を埋め込むパッケージ
+# request：　通信関係を扱う
+from flask import Flask, render_template,request
+# sqlite3：データベース
+import sqlite3
 
-app = Flask( __name__, static_folder=".", static_url_path="")
+# データベースの名前を設定　複数個所で扱うため
+DBname = "exampleDB.db"
+
+app = Flask( __name__)
 
 @app.route( "/")
 def index():
-	return app.send_static_file( "index.html")
+	return render_template( "index.html")
 
-@app.route( "/initialize")
-def init_db():
-	print( "/initialize")
-	con = sqlite3.connect( "system.db")
-	# strDropTable = "drop table tusers"
-	# con.execute( strDropTable)
-	strCreateTable = "create table tusers(uid int, password text)"
-	con.execute( strCreateTable)
-	con.commit()
-	con.close()	
-	return app.send_static_file("")
-
-@app.route( "/entry", methods = [ "GET", "POST"]  )
+# POSTで送られてきた情報をentry.htmlの中に埋め込む
+@app.route( "/entry/", methods=["POST", "GET"])
 def entry():
-	print( "entry() method called.")
 	if request.method == "POST":
-		print( "> POST...")
-		return render_template("form-complete.html")
+		uid = request.form.get( "uid")
+		password = request.form.get( "password")
+		return render_template( "entry.html" , uid=uid, password=password)
+	
+	else :
+		# POST以外の通信は、index.html（トップページ）
+		return render_template( "index.html")
 
-	else:
-		print( "> others.")
-		return render_template( "form.html")
-	return render_template( "form.html")
+@app.route( "/initializeDB/", methods=["POST","GET"])
+def initDB():
+	# データベースの初期化は、最初にテーブルがあることが前提
+	con = sqlite3.connect( DBname)
+	cursor = con.cursor()
+	strSql = '''select id from tusers'''
+	cursor.execute( strSql)
+	# 以上の操作で、テーブルがあれば1件以上読み出すことが出来る
+	# 以下の命令で、1行だけ取り出すか試す（True/False）
+	result = cursor.fetchone()
+	if not  result:
+		# 1行も読めなければ、テーブルをつくる
+		strSql = '''create table tusers( id text, password text)'''
+		con.execute( strSql)
+
+	# データを追加する
+	strSql = '''insert into tusers( id, password) values( "2000", "ueda")'''
+	con.execute( strSql)
+
+	# データをファイルに反映
+	con.commit()
+	con.close()
+
+	# トップページに移動
+	return render_template( "index.html", msg="初期化されました")
+
+@app.route( "/readDB/", methods=["POST", "GET"])
+def readDB():
+	# 未作成
+	return render_template( "index.html" ,msg="データを読み込みます")
 
 if __name__ == "__main__":
-	app.run( port=8080, debug=True)
+	app.run( port=8000, debug=True)
+

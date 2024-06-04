@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<h1>index.html</h1>
+
+	<form action="/entry/" method="post">
+		<div>
+			<label for="uid">uid</label>
+			<input type="text" name="uid" >
+		</div>
+		<div>
+			<label for="password">password</label>
+			<input type="password" name="password">
+		</div>
+		<div>
+			<input type="submit" value="送信">
+		</div>
+	</form>
+
+	<!-- データベースの初期化 -->
+	<form action="/initialize/" method="post">
+		<div>
+			<input type="submit" value="データベースの初期化">
+		</div>
+	</form>
+	<form action="/dumpTableTusers/" method="post">
+		<div>
+			<input type="submit" value="データベース初の表示">
+		</div>
+	</form>
+	<form action="/addUser/" method="post">
+		<input type="text" name="uid">
+		<input type="password" name="password">
+		<input type="submit" value="送信">
+	</form>
+	<p> {{msg}} </p>
+</body>
+</html>

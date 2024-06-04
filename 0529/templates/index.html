@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<!-- 見栄えの為のCSS -->
+	<style>
+		form{
+			border: solid 1px black;
+			margin: 5px;
+		}
+		form label {
+			width: 100px;
+			display: inline-block;
+			padding-top: 10px;
+			margin-left: 10px;
+		}
+		form div:last-child input{
+			margin-top: 10px;
+			margin-left: 300px;
+			display: inline-block;
+		}
+	</style>
+</head>
+<body>
+	<h1>index.html</h1>
+	
+	<!-- データ入力フォーム -->
+	<form action="/entry/" method="POST">
+		<div>
+			<label for="uid">uid</label>
+			<input type="text" name="uid" placeholder="enter uid">
+		</div>
+		<div>
+			<label for="password">password</label>
+			<input type="password" name="password" placeholder="enter password">
+		</div>
+		<div>
+			<input type="submit" value="送信">
+		</div>
+	</form>
+
+	<!-- データを読み込むためのフォーム -->
+	<form action="/readDB/" method="POST">
+		 <div>
+			<input type="submit" value="read DB">
+		 </div>
+	</form>
+
+	<!-- データベースの初期化フォーム -->
+	<form action="/initializeDB/" method="POST">
+		<input type="submit" value="データベースの初期化">
+	</form>
+
+	<p >{{msg}}</p>
+</body>
+</html>
