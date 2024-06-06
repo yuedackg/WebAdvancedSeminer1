@@ -1,0 +1,59 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table,
+        tr,
+        td,
+        th {
+            border: solid 2px black;
+            background-color: orange;
+            border-collapse: collapse;
+        }
+
+        th:nth-child(1) {
+            width: 100px;
+        }
+
+        th:nth-child(2) {
+            width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="/view/" method="post">
+        <table>
+            <thead>
+                <th>学籍番号</th>
+                <th>パスワード</th>
+            </thead>
+            
+            {% for line in lines %}
+            <tr>
+                <td> {% line[0] %} </td>
+                <td> {% line[1] %} </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <input type="submit" value="DBの表示">
+    </form>
+
+    <form action="/init/" method="post">
+        <input type="submit" value="DBの初期化">
+    </form>
+
+    <form action="/append/" method="post">
+        <input type="submit" value="DBへの追加">
+    </form>
+
+    <p> {{msg}} </p>
+</body>
+
+</html>
