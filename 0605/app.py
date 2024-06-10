@@ -13,19 +13,14 @@ def index():
 def view_sub():
     strSQL = '''SELECT * FROM tusers'''
     con = sqlite3.connect( DBname)
-    # 読み出し側が複数行になるときCursorの設定をする
     cur = con.cursor()
-    # SQLの実行は、cursorの変数を使って行う
     lines = cur.execute( strSQL)
-    for line in lines:
-        print( line)
-    con.close()
-    return lines
+    return lines.fetchall()
 
 @app.route( "/view/", methods=["POST"])
 def view():
-    results = view_sub()
-    return render_template( "index.html", msg="viewボタンが押されました。", lines = results )
+    lines = view_sub()
+    return render_template( "index.html", msg="viewボタンが押されました。", lines = lines )
 
 def init_sub():
 
