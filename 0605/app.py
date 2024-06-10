@@ -45,6 +45,7 @@ def init():
 
 @app.route( "/append/", methods=["POST"])
 def append():
+    
     return render_template( "index.html", msg="appendボタンが押されました")
 
 if __name__ == "__main__":
