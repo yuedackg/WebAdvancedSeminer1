@@ -9,7 +9,7 @@ DBname = "exampleDB.db"
 @app.route( "/")
 def index():
     return render_template( "index.html", msg="/が指定されました", list="")
-
+                                                                                                                                                                                                                                                                                                                                                                        
 def view_sub():
     strSQL = '''SELECT * FROM tusers'''
     con = sqlite3.connect( DBname)
@@ -48,7 +48,7 @@ def append_sub():
         inUid = request.form.get("userid")
         inPassword = request.form.get( "password")
         print( inUid, inPassword)
-        strSql = '''insert into tusers ( uid, password ) values ("''' + inUid +  '''"," ''' +inPassword +'''")'''
+        strSql = '''insert into tusers ( uid, password ) values ("''' + inUid  +  '''"," ''' +inPassword +'''")'''
         print( strSql)
         con = sqlite3.connect(DBname)
         con.execute( strSql)
@@ -71,5 +71,6 @@ def delete():
         con.commit()
         con.close()
         return render_template( "index.html", msg="削除ボタンが押されました", lines="")
+
 if __name__ == "__main__":
     app.run( port=8000, debug=True)
