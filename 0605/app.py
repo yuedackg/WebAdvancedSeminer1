@@ -69,10 +69,14 @@ def delete():
         strSQL = '''delete from tusers where uid =="'''+ uid + '''"'''
         print( strSQL)
         # step 3　SQLを実行
-        con = sqlite3.connect( DBname)
-        con.execute( strSQL)
-        con.commit()
-        con.close()
+        try:
+            con = sqlite3.connect( DBname)
+            con.execute( strSQL)
+            con.commit()
+            con.close()
+        except sqlite3.OperationalError:
+            print( "DB操作ができません")
+
         return render_template( "index.html", msg="削除ボタンが押されました", lines="")
 
 if __name__ == "__main__":

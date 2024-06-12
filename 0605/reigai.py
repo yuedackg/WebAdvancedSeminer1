@@ -1,15 +1,13 @@
-def calc ( warareru, waru ):
-    ans = warareru / waru
+def calc( w, waru ):
+    ans = w / waru 
     return ans
 
-a = input( "Enter number:")
-iA = int( a )
+a = input( "enter number string:")
+iA = int( a)
 
-print(  "calc 10 / a :" , end="")
 try:
-    retA = calc( 10, iA)
-    print( retA)    
-
+    ret  =  calc( 10,  iA)
+    print( ret)
 except ZeroDivisionError:
-    print( "0での割り算が行われました。")
-
+    print( "計算ができません")
+    
