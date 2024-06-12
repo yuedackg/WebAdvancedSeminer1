@@ -43,8 +43,22 @@ def init():
     init_sub()
     return render_template( "index.html", msg="initボタンが押されました。", list="")
 
+    
 @app.route( "/append/", methods=["POST"])
 def append():
+    if request.method=="POST":
+        # step1 通信の中からデータを取る
+        myAppendID = request.form.get("appendID")
+        myAppendPassword = request.form.get( "appendPassword")
+        print( myAppendID, myAppendPassword)
+        # step2　sQLを組み立てる
+        strSQL = '''insert into tusers (uid , password) values ( "''' + myAppendID + '''", "'''+    myAppendPassword +'''" )'''
+        print( strSQL)
+        # step3　SQLを実行する
+        conn = sqlite3.connect( DBname)
+        conn.execute( strSQL)
+        conn.commit()
+        conn.close()
     return render_template( "index.html", msg="appendボタンが押されました")
 
 if __name__ == "__main__":
