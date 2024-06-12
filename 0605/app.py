@@ -63,9 +63,12 @@ def append():
 @app.route( "/delete/", methods=["POST"])
 def delete():
     if request.method == "POST":
+        # step 1　通信からフォーム内のデータを取り出す
         uid = request.form.get( "deleteUid")
+        # step 2 SQLを作る
         strSQL = '''delete from tusers where uid =="'''+ uid + '''"'''
         print( strSQL)
+        # step 3　SQLを実行
         con = sqlite3.connect( DBname)
         con.execute( strSQL)
         con.commit()
