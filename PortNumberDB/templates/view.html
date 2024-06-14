@@ -6,11 +6,22 @@
     <title>Document</title>
 </head>
 <body>
+    <p><a href="/">TOP　ページに戻る</a></p>
     <h1>view</h1>
+    <table border="1">
+        <thead>
+            <th>Port Number</th>
+            <th>Port Name</th>
+        </thead>
+        {% for line in lines %}
+        <tr>
+            <td> {{line[0]}} </td>
+            <td> {{line[1]]} </td>
+        </tr>
+        {% endfor %}
+    </table>
+ 
 
-    {% for line in lines %}
 
-    print(  {{line}} )
-    {% endfor %}
 </body>
 </html>
