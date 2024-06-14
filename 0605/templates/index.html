@@ -33,7 +33,7 @@
                 <th>学籍番号</th>
                 <th>パスワード</th>
             </thead>
-            
+
             {% for line in lines %}
             <tr>
                 <td> {{ line[0] }} </td>
@@ -50,15 +50,10 @@
     </form>
 
     <form action="/append/" method="post">
-<<<<<<< HEAD
-        <input type="text" name="appendID">
-        <input type="password" name="appendPassword">
-=======
         <label for="userid">userid</label>
         <input type="text" name="userid">
         <label for="password">password</label>
         <input type="password" name="password">
->>>>>>> develop
         <input type="submit" value="DBへの追加">
     </form>
 
@@ -67,7 +62,18 @@
         <input type="text" name="deleteUid">
         <input type="submit" value="指定ユーザIDの削除">
     </form>
-    
+    <hr>
+
+    <form action="/login/" method="post">
+        <label for="userid">ユーザID：</label>
+        <input type="text" name="userid"> <br>
+
+        <label for="userserPassword">パスワード：</label>
+        <input type="password" name="userserPassword"> <br>
+
+        <input type="submit" value="login"> <br>
+    </form>
+
     <p> {{msg}} </p>
 </body>
 

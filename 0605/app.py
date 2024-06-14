@@ -43,24 +43,6 @@ def init():
     init_sub()
     return render_template( "index.html", msg="initボタンが押されました。", list="")
 
-<<<<<<< HEAD
-    
-@app.route( "/append/", methods=["POST"])
-def append():
-    if request.method=="POST":
-        # step1 通信の中からデータを取る
-        myAppendID = request.form.get("appendID")
-        myAppendPassword = request.form.get( "appendPassword")
-        print( myAppendID, myAppendPassword)
-        # step2　sQLを組み立てる
-        strSQL = '''insert into tusers (uid , password) values ( "''' + myAppendID + '''", "'''+    myAppendPassword +'''" )'''
-        print( strSQL)
-        # step3　SQLを実行する
-        conn = sqlite3.connect( DBname)
-        conn.execute( strSQL)
-        conn.commit()
-        conn.close()
-=======
 def append_sub():
     if request.method == "POST":
         inUid = request.form.get("userid")
@@ -76,7 +58,6 @@ def append_sub():
 @app.route( "/append/", methods=["POST"])
 def append():
     append_sub()
->>>>>>> develop
     return render_template( "index.html", msg="appendボタンが押されました")
 
 @app.route( "/delete/", methods=["POST"])
@@ -98,5 +79,36 @@ def delete():
 
         return render_template( "index.html", msg="削除ボタンが押されました", lines="")
 
+@app.route( "/login/", methods=["POST"])
+def login():
+    if request.method == "POST":
+        inUserid = request.form.get( "userid")
+        inPassword = request.form.get("userserPassword")
+        # print( inUserid, inPassword)
+        strSql = '''select * from tusers where uid="''' + inUserid +     '''"  and password="''' + inPassword + '''"'''
+        print( strSql)
+
+        conn = sqlite3.connect( DBname)
+        cur = conn.cursor()
+        cur.execute( strSql)
+
+        # print( cur.fetchone())
+        if cur.fetchone() == None :
+            return render_template( "index.html", msg="loginできません" )
+        else:
+            return render_template( "loginsuccess.html")
+
+        conn.close()
+        # ALT+z 右側で折り返し
+    return render_template( "index.html", msg="loginできません" )
+
+@app.route( "/update/" , methods=["post"])
+def update():
+    if request.method == "POST":
+        inUserid = request.form.get( "userid")
+        inPassword = request.form.get( "userserPassword")
+        sreSQL = '''update tusers set password="''' + inPassword + '''" where uid="''' + inUserid + '''"'''
+        print(  sreSQL)
+        
 if __name__ == "__main__":
     app.run( port=8000, debug=True)
