@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input {
+                border-radius: 30px;
+                width: 10em;
+                font-size: 15pt;
+                margin: 5px;
+            }
+            div {
+                border: solid 1px black;
+                width: 20em;
+                padding: 10px;
+            }
+            h2{
+                margin-left:  20px;
+            }
+    </style>
+</head>
+
+<body>
+    <h1>Port address DB</h1>
+    <p>ポート番号のデータベースを作成・維持・管理します。</p>
+    <div>
+        <h2> Menu </h2>
+        <form action="/view/" method="post">
+            <input type="submit" value="データ内容の一覧">
+        </form>
+        <form action="/append/" method="post">
+            <input type="submit" value="データの追加">
+        </form>
+        <form action="/delete/" method="post">
+            <input type="submit" value="削除">
+        </form>
+             <form action="/init/" method="post">
+            <input type="submit" value="テーブルの管理">
+        </form>
+    </div>
+
+
+
+</body>
+
+</html>

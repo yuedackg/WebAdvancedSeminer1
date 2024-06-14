@@ -50,11 +50,24 @@
     </form>
 
     <form action="/append/" method="post">
+<<<<<<< HEAD
         <input type="text" name="appendID">
         <input type="password" name="appendPassword">
+=======
+        <label for="userid">userid</label>
+        <input type="text" name="userid">
+        <label for="password">password</label>
+        <input type="password" name="password">
+>>>>>>> develop
         <input type="submit" value="DBへの追加">
     </form>
 
+    <form action="/delete/" method="POST">
+        <label for="deleteUid">削除するユーザIDを指定してください。</label>
+        <input type="text" name="deleteUid">
+        <input type="submit" value="指定ユーザIDの削除">
+    </form>
+    
     <p> {{msg}} </p>
 </body>
 
