@@ -1,14 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja_JP">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        label{
+            width: 20ex;
+            background-color: blanchedalmond;
+        }
+    </style>
 </head>
 
 <body>
     <p><a href="/">top ページに戻る</a></p>
+    <h1>append</h1>
 
-        <h1>append</h1>
+    <form action="/doAppend/" method="POST">
+        <div>
+            <label for="uid">ユーザID：</label>
+            <input type="text" name="uid" id="">
+        </div>
+
+        <div>
+            <label for="pass">パスワード:</label>
+            <input type="text" name="pass">
+        </div>
+
+        <div>
+            <input type="submit" value="チェンジ">
+        </div>
+
+    </form>
 </body>
+
 </html>

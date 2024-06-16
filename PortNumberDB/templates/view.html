@@ -13,10 +13,11 @@
             <th>Port Number</th>
             <th>Port Name</th>
         </thead>
+        <!-- {%  print( "lines = " , lines) %} -->
         {% for line in lines %}
         <tr>
             <td> {{line[0]}} </td>
-            <td> {{line[1]]} </td>
+            <td> {{line[1]}} </td>
         </tr>
         {% endfor %}
     </table>
