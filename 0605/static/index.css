@@ -1,0 +1,21 @@
+table,
+tr,
+td,
+th {
+    border: solid 2px black;
+    background-color: orange;
+    border-collapse: collapse;
+}
+
+th:nth-child(1) {
+    width: 100px;
+}
+
+th:nth-child(2) {
+    width: 200px;
+}
+
+#iUpdate{
+    background-color: aquamarine;
+    font:bold;
+}
