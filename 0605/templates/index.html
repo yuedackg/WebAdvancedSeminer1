@@ -6,23 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{url_for('static', 'index.css')}">
     <style>
-        table,
-        tr,
-        td,
-        th {
-            border: solid 2px black;
-            background-color: orange;
-            border-collapse: collapse;
-        }
-
-        th:nth-child(1) {
-            width: 100px;
-        }
-
-        th:nth-child(2) {
-            width: 200px;
-        }
+       
     </style>
 </head>
 
@@ -74,6 +60,21 @@
         <input type="submit" value="login"> <br>
     </form>
 
+    <form action="/update/" method="post" id="iUpdate">
+        <label for="userId">ユーザID:</label>
+        <input type="text" name="userId">
+        <br>
+
+        <label for="userBeforePassword">更新前パスワード：</label>
+        <input type="text" name="userBeforePassword">
+        <br>
+
+        <label for="userAfterPassword">更新後パスワード：</label>
+        <input type="text" name="userAfterPassword">
+        <br>
+
+        <input type="submit">
+    </form>
     <p> {{msg}} </p>
 </body>
 

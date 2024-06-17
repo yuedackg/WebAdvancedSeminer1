@@ -105,8 +105,10 @@ def login():
 @app.route( "/update/" , methods=["post"])
 def update():
     if request.method == "POST":
-        inUserid = request.form.get( "userid")
-        inPassword = request.form.get( "userserPassword")
+        inUserid = request.form.get( "userId")
+        inPassword = request.form.get( "userBeforePassword")
+        inFixPassword = request.form.get( "userAfterPassword")
+        print( inUserid, inPassword, inFixPassword)
         sreSQL = '''update tusers set password="''' + inPassword + '''" where uid="''' + inUserid + '''"'''
         print(  sreSQL)
         
