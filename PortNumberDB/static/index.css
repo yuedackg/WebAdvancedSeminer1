@@ -1,0 +1,14 @@
+input {
+    border-radius: 30px;
+    width: 20em;
+    font-size: 15pt;
+    margin: 5px;
+}
+div {
+    border: solid 1px black;
+    width: 25em;
+    padding: 10px;
+}
+h2{
+    margin-left:  20px;
+}

@@ -54,16 +54,40 @@ def doAppend():
             strSQL = '''insert into tusers( uid, passwd) values ('''+ inUid + ''', "''' + inPass+ '''")''' 
             print( strSQL)
             cur.execute( strSQL)
+            msg="データを追加しました"
+        else:
+            msg="既存のデータがあるため追加できません"
             con.commit()
+
         print( line)
         con.close()
-        msg="データを追加しました"
+      
     except sqlite3.OperationalError:
         msg="データの追加に失敗しました。"
     return render_template( "doAppend.html", msg=msg)
+
 @app.route( "/delete/", methods=["post"])
 def delete():
-    return render_template( "delete.html")
+    strSQL = '''select * from tusers'''
+    try:
+        con = sqlite3.connect(DBname)
+        cur = con.cursor()
+        cur.execute( strSQL)
+        datas = []
+        for l in cur.fetchall():
+            d =[]
+            for item in l:
+                d.append( item)
+            datas.append( d)
+        con.close()
+    except sqlite3.OperationalError:
+        print( "Operational error.")
+    return render_template( "delete.html", lines=datas )
+
+@app.apend( "/doDelete/", methods=["post"])
+def doDelete():
+    if  request.method=="post":
+        #フォームで送られた一覧を表示
 
 @app.route( "/init/", methods=["post"])
 def init():

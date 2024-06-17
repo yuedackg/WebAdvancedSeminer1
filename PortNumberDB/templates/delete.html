@@ -9,5 +9,26 @@
     <p><a href="/">top ページに戻る</a></p>
 
     <h1> delete form </h1>
+
+    <form action="/doDelete/" method="post">
+        <table border="1">
+            <thead>
+                <th></th>
+                <th> Port Number( pid ) </th>
+                <th> Description </th>
+            </thead>
+            {% for line in lines %}
+            <tr>
+                <td> <input type="checkbox" value="{{line[0]}}"></td>
+                <td> {{line[0]}} </td>
+                <td> {{line[1]}} </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <input type="submit" value="削除">
+
+    </form>
+
+
 </body>
 </html>
