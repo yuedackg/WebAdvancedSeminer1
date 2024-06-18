@@ -104,6 +104,28 @@ def login():
 
 @app.route( "/update/" , methods=["post"])
 def update():
+    if request.method == "POST":
+        inUserId = request.form.get( "userid")
+        inPassword = request.form.get( "userBeforePassword")
+        inFixPassword = request.form.get( "userAfterPassword")
+        # 変数にきちんと値が入ったか確認
+        print("info",  inUserId, inPassword, inFixPassword)
+        # sql文を作る
+        strSQL = '''update from tusers set password = "'''               + inFixPassword + '''" where uid = "'''                           + inUserId +      '''" and Password ='''                         + inPassword +    '''"'''
+        print( strSQL)
+        # 次のように生成されることを確認する
+        # update from tusers set password = "ueda" where uid = "23000" and password = "mypassword"
+        try:
+            con = sqlite3.connect(DBname)
+            cur = con.cursor()
+            cur.execute( strSQL)
+            con.close()
+        except sqlite3.DatabaseError:
+            # 対処するプログラムを書く
+            return render_template( "index.html", msg="SQL実行時にエラーが発生しました。")
+
+    return render_template( "index.html", msg="success.")
+
 
 if __name__ == "__main__":
     app.run( port=8000, debug=True)

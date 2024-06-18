@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="{{ url_for('static', 'index.css') }}">
+
     <style>
        
     </style>
@@ -60,21 +60,23 @@
         <input type="submit" value="login"> <br>
     </form>
 
-    <form action="/update/" method="post" id="iUpdate">
-        <label for="userId">ユーザID:</label>
-        <input type="text" name="userId">
+    <form action="/update/" method="post">
+        <label for="userid">ユーザID：　</label>
+        <input type="text" name="userid">
         <br>
 
         <label for="userBeforePassword">更新前パスワード：</label>
-        <input type="text" name="userBeforePassword">
+        <input type="password" name="userBeforePassword">
         <br>
 
-        <label for="userAfterPassword">更新後パスワード：</label>
-        <input type="text" name="userAfterPassword">
+        <label for="userAfterPassword">更新後のパスワード：</label>
+        <input type="password" name="userAfterPassword">
         <br>
 
-        <input type="submit">
+        <input type="submit" value="更新">
     </form>
+
+
     <p> {{msg}} </p>
 </body>
 
