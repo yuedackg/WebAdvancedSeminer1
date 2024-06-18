@@ -109,8 +109,32 @@ def update():
         inPassword = request.form.get( "userBeforePassword")
         inFixPassword = request.form.get( "userAfterPassword")
         print( inUserid, inPassword, inFixPassword)
-        sreSQL = '''update tusers set password="''' + inPassword + '''" where uid="''' + inUserid + '''"'''
-        print(  sreSQL)
-        
+        strSQL = '''update tusers set password="''' + inPassword + '''" where uid="''' + inUserid + '''"'''
+        print(  strSQL)
+        try:
+            conn = sqlite3.connect(DBname)
+            cur = conn.cursor()
+            cur.execute( strSQL)
+            if cur.fetchone() != None :
+                # データがある
+                try:
+                    print("更新処理")
+                    
+                except sqlite3.OperationalError:
+                    # 更新処理のエラー処理
+                    pass
+        except sqlite3.OperationalError:
+            # strSQLのエラー処理
+            pass
+
+        try:
+            strSQL = '''update from tusers set uid = inFixPassword where uid = inUserid and Password = inPassword'''
+            conn =sqlite3.connect(DBname)
+            cur = conn.cursor()
+            cur.execute(strSQL)
+        except sqlite3.OperationalError:
+            # SQLのエラー処理
+            pass
+
 if __name__ == "__main__":
     app.run( port=8000, debug=True)
