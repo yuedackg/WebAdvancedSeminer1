@@ -1,0 +1,30 @@
+/* style.css */
+
+body {
+	background-color: cornflowerblue;
+}
+
+div div {
+	border-radius: 20px;
+	background-color: antiquewhite;
+	border: solid 1px black;
+	/* width: 200px; */
+
+}
+body > div{
+	border: solid 1px black;
+	padding: 5px;
+	width:250px;
+
+}
+
+.AItem {
+	display: inline-block;
+	width: 200px;
+	text-align: left;
+}
+.divItem{
+	width: 220px;
+	text-align: center;
+	margin: 5px;
+}
