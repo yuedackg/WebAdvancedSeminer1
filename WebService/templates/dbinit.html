@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{{url_for( 'static', filename='style.css')}}">
 	<title>Document</title>
 
 </head>
@@ -13,9 +14,11 @@
 	<main>
 		<h1>DBの初期化</h1>
 		<div>
-			<div></div>
+			<div class="divItem"><a href="/dbInitialize/" class="AItem">databaseの初期化</a></div>
+			<div class="divItem"><a href="/dbInitializeInsertDummyData/">ダミーデータの挿入</a></div>
 		</div>
 
+		<p> {{msg}} </p>
 	</main>
 </body>
 </html>
