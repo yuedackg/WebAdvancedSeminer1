@@ -1,14 +1,36 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
+	<link rel="stylesheet" href="{{url_for( 'static',filename='style.css')}}">
+	<link rel="stylesheet" href="{{url_for( 'static', filename='dbview.css')}}">
+
 </head>
+
 <body>
 	<header>
 		<div><a href="/">Goto TopPage.</a></div>
 	</header>
-	
+	<main>
+		<table>
+			<thead>
+				<th class="colNo">学籍番号</th>
+				<th class="colName">氏名</th>
+				<th class="colYear">生年</th>
+				<th class="hidden"><input type="hidden"></th>
+			</thead>
+			<tr>
+				<td class="colNo"></td>
+				<td class="colName"></td>
+				<td class="colYear"></td>
+				<td class="hidden"></td>
+			</tr>
+		</table>
+	</main>
+	<p>{{msg}}</p>
 </body>
+
 </html>

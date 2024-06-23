@@ -1,0 +1,20 @@
+
+table,tr,td,thead,th{
+	border: solid 1px black;
+	
+}
+table {
+	border-collapse: collapse;
+}
+.colNo{
+	width: 10em;
+	text-align: center;
+}
+.colName{
+	width: 20em;
+	padding-left: 1em;
+}
+.colYear{
+	width: 6em;
+	text-align: center;
+}

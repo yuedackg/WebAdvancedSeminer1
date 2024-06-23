@@ -1,15 +1,42 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{{url_for( 'static', filename='style.css')}}">
 	<title>Document</title>
-	
+
 </head>
+
 <body>
 	<header>
 		<div><a href="/">Goto TopPage.</a></div>
 	</header>
-	
+	<main>
+		<h1>DB insert data</h1>
+		<form action="/dbAppend/" method="post">
+			<div>
+				<label for="no">学籍番号</label>
+				<input type="text" name="no" id="">
+			</div>
+			<div>
+				<label for="simei">氏名</label>
+				<input type="text" name="simei">
+			</div>
+			<div>
+				<label for="birthY">生年</label>
+				<input type="text" name="birthY">
+			</div>
+			<div>
+				<input type="submit" value="登録" id="bTouroku">
+			</div>
+
+
+		</form>
+		<p>{{msg}}</p>
+	</main>
+
 </body>
+
 </html>

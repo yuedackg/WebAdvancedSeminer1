@@ -3,12 +3,36 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{{url_for( 'static',filename='style.css')}}">
+	<link rel="stylesheet" href="{{url_for( 'static', filename='dbview.css')}}">
 	<title>Document</title>
+	<style>
+
+	</style>
 </head>
 <body>
 	<header>
 		<div><a href="/">Goto TopPage.</a></div>
 	</header>
-	
+	<main>
+		<h1>データベースの内容</h1>
+		<!-- {% print lines %} -->
+		<table>
+			<thead>
+				<th class="colNo">学籍番号</th>
+				<th class="colName">氏名</th>
+				<th class="colYear">生年</th>
+			</thead>
+			{% for item in lines %}
+			<tr>
+				<td class="colNo">{{item[0]}}</td>
+				<td class="colName">{{item[1]}}</td>
+				<td class="colYear">{{item[2]}}</td>
+			</tr>
+			{% endfor %}
+		</table>
+
+	</main>
+	<p>{{msg}}</p>
 </body>
 </html>
