@@ -67,24 +67,6 @@ def dbViewA():
 	return render_template( "dbview.html", msg=message, lines=lines)
 	
 
-# @app.route( "/dbView/", methods=["post"])
-# def dbView():
-# 	message=""
-# 	lines=[]
-# 	strSQL = 'select * from {TableName} '
-# 	if request.method==REQUEST_TYPE:
-# 		try:
-# 			conn = sqlite3.connect( DBname)
-# 			cur = conn.cursor()
-# 			cur.execute( strSQL.format( TableName=TableName))
-# 			for line in cur.fetchall():
-# 				print(line)
-# 				lines.append( line)
-# 			conn.close()
-# 		except sqlite3.DatabaseError as err :
-# 			message="データベースからの取り出しに失敗しました。"
-# 	return render_template( "dbview.html", msg=message)
-	
 @app.route( "/dbAppend/")
 def dbAppendA():
 	return render_template( "dbappend.html")
@@ -131,15 +113,47 @@ def dbAppend():
 			print( dberr)
 	return render_template( "dbappend.html" , msg=message)
 
+def dbDeleteAMain():
+	strSQL= "select * from {TableName}".format( TableName=TableName)
+	print(strSQL)
+	con=sqlite3.connect( DBname)
+	cur=con.cursor()
+	cur.execute(strSQL)
+	# print( cur.fetchall())
+	result=[]
+	for line in cur.fetchall():
+		item=[]
+		for a in line:
+			item.append( a)
+		result.append( item)
+		print( "147",result)
+	con.close()
+	return result
+
 @app.route( "/dbDelete/")
 def dbDeleteA():
-	return render_template( "dbdelete.html")
+	result = dbDeleteAMain()
+	return render_template( "dbdelete.html", msg="", lines=result)
 
 @app.route( "/dbDelete/", methods=["POST"])
 def dbDelete():
+	message=""
 	if request.method == REQUEST_TYPE:
-		print( request.form)
-	return render_template( "dbdelete.html")
+		rets = request.form.to_dict()
+		for item in rets:
+			print("|", item)
+			strSQL= "delete from {} where id={}".format( TableName, item)
+			print(strSQL)
+			try:
+				con=sqlite3.connect(DBname)
+				con.execute( strSQL)
+				con.commit()
+				con.close()
+			except sqlite3.DatabaseError:
+				message = "削除エラー"
+			result=dbDeleteAMain()
+
+	return render_template( "dbdelete.html", msg=message, lines=result)
 
 
 if __name__ == "__main__":

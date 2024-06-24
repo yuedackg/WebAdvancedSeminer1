@@ -23,14 +23,14 @@
 					<th class="colYear">生年</th>
 					<th class="hidden"><input type="hidden"></th>
 				</thead>
-				{for keys in lines}
+				{% for keys in lines %}
 				<tr>
-					<td class="colNo"></td>
-					<td class="colName"></td>
-					<td class="colYear"></td>
-					<td class="hidden"><input type="checkbox">{{keys}}</td>
+					<td class="colNo">{{keys[0]}}</td>
+					<td class="colName">{{keys[1]}}</td>
+					<td class="colYear">{{keys[2]}}</td>
+					<td class="hidden"><input type="checkbox" name="{{keys[0]}}"></td>
 				</tr>
-				{end_for}
+				{% endfor %}
 			</table>
 
 			<input type="submit" value="削除">
