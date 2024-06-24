@@ -131,6 +131,16 @@ def dbAppend():
 			print( dberr)
 	return render_template( "dbappend.html" , msg=message)
 
+@app.route( "/dbDelete/")
+def dbDeleteA():
+	return render_template( "dbdelete.html")
+
+@app.route( "/dbDelete/", methods=["POST"])
+def dbDelete():
+	if request.method == REQUEST_TYPE:
+		print( request.form)
+	return render_template( "dbdelete.html")
+
 
 if __name__ == "__main__":
 	app.run( port=8000, debug=True)

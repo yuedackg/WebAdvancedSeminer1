@@ -15,20 +15,27 @@
 		<div><a href="/">Goto TopPage.</a></div>
 	</header>
 	<main>
-		<table>
-			<thead>
-				<th class="colNo">学籍番号</th>
-				<th class="colName">氏名</th>
-				<th class="colYear">生年</th>
-				<th class="hidden"><input type="hidden"></th>
-			</thead>
-			<tr>
-				<td class="colNo"></td>
-				<td class="colName"></td>
-				<td class="colYear"></td>
-				<td class="hidden"></td>
-			</tr>
-		</table>
+		<form action="/dbDelete/" method="post">
+			<table>
+				<thead>
+					<th class="colNo">学籍番号</th>
+					<th class="colName">氏名</th>
+					<th class="colYear">生年</th>
+					<th class="hidden"><input type="hidden"></th>
+				</thead>
+				{for keys in lines}
+				<tr>
+					<td class="colNo"></td>
+					<td class="colName"></td>
+					<td class="colYear"></td>
+					<td class="hidden"><input type="checkbox">{{keys}}</td>
+				</tr>
+				{end_for}
+			</table>
+
+			<input type="submit" value="削除">
+		</form>
+
 	</main>
 	<p>{{msg}}</p>
 </body>
