@@ -155,6 +155,9 @@ def dbDelete():
 
 	return render_template( "dbdelete.html", msg=message, lines=result)
 
+@app.route( "/dbUpdate/")
+def dbUpdateA():
+	return render_template( "dbupdate.html", msg="")
 
 if __name__ == "__main__":
 	app.run( port=8000, debug=True)

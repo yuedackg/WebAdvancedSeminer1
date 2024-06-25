@@ -3,12 +3,39 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{{url_for( 'static', filename='style.css')}}">
 	<title>Document</title>
+	<style>
+		 label {
+			display: inline-block;
+			width: 12ex;
+			text-align: justify;
+			text-align-last: justify;
+		}
+	</style>
 </head>
 <body>
 	<header>
 		<div><a href="/">Goto TopPage.</a></div>
 	</header>
-	
+	<main>
+		<h1>Database の更新</h1>
+		<form action="post" method="post">
+			<div>
+				<label for="gakusekiNo"  >学籍番号：</label>
+				<input type="text" name="gakusekiNo" placeholder="学籍番号を半角で">
+			</div>
+			<div>
+				<label for="simei">氏名：</label>
+				<input type="text" name="simei">
+			</div>
+			<div>
+				<label for="Year">生年：</label>
+				<input type="text" name="Year" placeholder="生まれた年を半角で">
+			</div>
+			<input type="submit" value="更新">
+		</form>
+		<p>{{msg}}</p>
+	</main>
 </body>
 </html>
