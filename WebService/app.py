@@ -62,6 +62,41 @@ def dbView():
 def dbAppend():
 	return render_template( "dbappend.html")
 
+@app.route( "/doappend/", methods=["post"])
+def doAppend():
+	message=""
+	inNo=0
+	strSimei=""
+	inYear=""
+
+	if request.method == REQUEST_TYPE:
+		try:
+			inNo=int(request.form.get( "no"))
+			inYear = int (request.form.get( "birthY"))
+		except ValueError:
+			message="正しく数字が入力されていない"
+		strSimei = request.form.get("simei")
+		strSql = 'select * from {} where id = {} '.format( TableName, inNo)
+		try:
+			con=sqlite3.connect(DBname)
+			cur =con .cursor()
+			if cur.fetchone() == None:
+				print( "データが存在し泣いたため、登録OK")
+				try:
+					strSQL = 'insert into {} values( {}, "{}", {}) '.format( TableName, inNo, strSimei, inYear)
+					print( "strSQL: {}".format( strSQL))
+					con.execute( strSQL)
+					message="データの登録完了"
+				except sqlite3.DatabaseError:
+					message="データの追加中にエラーが発生しました"
+			else:
+				message="データが存在するために登録できない"
+			con.commit()
+			con.close()
+		except sqlite3.DatabaseError:
+			message="データベースにエラーが発生した"
+	print( "message:{}".format( message))
+	return render_template( "dbappend.html", msg = message)
 @app.route( "/dbDelete/")
 def dbDelete():
 	return render_template( "dbdelete.html")

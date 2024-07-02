@@ -11,6 +11,24 @@
 	<header>
 		<div><a href="/">Goto TopPage.</a></div>
 	</header>
-	
+	<main>
+		<form action="/doappend/" method="POST">
+			<div>
+				<label for="no">学籍番号</label>
+				<input type="text" name="no">
+			</div>
+			<div>
+				<label for="simei">氏名</label>
+				<input type="text" name="simei">
+			</div>
+			<div>
+				<label for="birthY">生年</label>
+				<input type="text" name="birthY">
+			</div>
+			<div>
+				<input type="submit" value="登録" id="bTouroku">
+			</div>
+		</form>
+	</main>
 </body>
 </html>
