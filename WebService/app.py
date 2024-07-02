@@ -97,9 +97,34 @@ def doAppend():
 			message="データベースにエラーが発生した"
 	print( "message:{}".format( message))
 	return render_template( "dbappend.html", msg = message)
+
 @app.route( "/dbDelete/")
+def dbDelete0():
+	strSQL = 'select * from {} '.format( TableName)
+	con = sqlite3.connect( DBname)
+	cur = con.cursor()
+	cur.execute( strSQL)
+	lines=[]
+	for item in cur.fetchall():		# テーブルから1行ずつ処理
+		line = [] 
+		for i in item :
+			line.append(i)
+			print( line)
+		lines.append( line)
+	print( lines)
+	con.close()
+	return render_template( "dbdelete.html", msg="", lines=lines)
+
+
+@app.route( "/dbDelete/",methods=["post"])
 def dbDelete():
+	if request.method == REQUEST_TYPE:
+		rets = request.form.to_dict()
+		print( rets)
+		
 	return render_template( "dbdelete.html")
+
+
 
 @app.route( "/dbUpdate/")
 def dbupdate():

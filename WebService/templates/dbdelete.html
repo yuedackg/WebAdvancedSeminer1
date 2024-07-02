@@ -1,16 +1,46 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 	<link rel="stylesheet" href="{{url_for( 'static', filename='style.css')}}">
+	<link rel="stylesheet" href="{{url_for( 'static', filename='dbdelete.css')}}">
+	<style>
 
+	</style>
 </head>
+
 <body>
 	<header>
 		<div><a href="/">Goto TopPage.</a></div>
 	</header>
-	
+	<main>
+		<form action="/dbDelete/" method="post">
+			<table>
+				<thead>
+					<th class="colNo">学籍番号</th>
+					<th class="colName">名前</th>
+					<th class="colYear">生まれた年</th>
+					<th class="hidden">削除フラグ</th>
+				</thead>
+				{% for line in lines %}
+				<tr>
+					<td class="colNo"> {{line[0]}} </td>
+					<td class="colName"> {{line[1]}} </td>
+					<td class="colYear"> {{line[2]}} </td>
+					<td class="hidden">
+						<input type="checkbox" name="{{line[0]}}" id="">
+					</td>
+				</tr>
+				{% endfor %}
+			</table>
+			<input type="submit" value="削除">
+		</form>
+
+	</main>
+	<p> {{msg}} </p>                               
 </body>
+
 </html>
