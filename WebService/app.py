@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import sqlite3
 import random
 
+
 app = Flask( __name__)
 DBname = "myDatabase.db"
 TableName = "TGAKUSEI"
@@ -98,8 +99,7 @@ def doAppend():
 	print( "message:{}".format( message))
 	return render_template( "dbappend.html", msg = message)
 
-@app.route( "/dbDelete/")
-def dbDelete0():
+def DeleteMain():
 	strSQL = 'select * from {} '.format( TableName)
 	con = sqlite3.connect( DBname)
 	cur = con.cursor()
@@ -113,16 +113,34 @@ def dbDelete0():
 		lines.append( line)
 	print( lines)
 	con.close()
+	return lines
+
+@app.route( "/dbDelete/")
+def dbDelete0():
+	lines = DeleteMain()
 	return render_template( "dbdelete.html", msg="", lines=lines)
 
 
 @app.route( "/dbDelete/",methods=["post"])
 def dbDelete():
 	if request.method == REQUEST_TYPE:
-		rets = request.form.to_dict()
-		print( rets)
-		
-	return render_template( "dbdelete.html")
+		rets = request.form.to_dict()  # 削除のチェックが入ったデータを受取る
+		print( rets)					# 状態を確認
+
+		con =sqlite3.connect( DBname)	# データベースにつなげる
+		for item in rets:				# チェックボックスのデータを取出す
+			print ( "item : " , item ) 	# 1組ずつ取り出してみる⇒検討
+										# SQLを使いまわしできないか検討
+										# forで繰り返せないか検討
+			strSQL='delete from {} where gakusekiNo = {}'.format( TableName, item)
+			con.execute( strSQL)		# SQLの実行
+		con.commit()					# commit()の位置で
+										# 　DBの反映のタイミングが決まる
+		con.close()
+	lines = DeleteMain()				# 現在のテーブルの状態を取得する
+										# メッセージを「deleted!」
+										# テーブルの状態のリストlines埋める
+	return render_template( "dbdelete.html", msg="deleted!", lines=lines)
 
 
 
@@ -132,4 +150,6 @@ def dbupdate():
 
 if __name__ == "__main__":
 	app.run( port=8000, debug=True)
-app.run()
+
+
+
