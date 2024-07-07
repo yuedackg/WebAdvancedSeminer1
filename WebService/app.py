@@ -27,7 +27,7 @@ def dbInitialize():
 		con.execute( strSQL.format( TableName))
 		s='insert into {} ( gakusekiNo, simei, birthYear) values ( {}, "{}", {}) '
 		for k in range(5):
-			sql = s.format( TableName, random.randint( 23900, 23999), "dummy", random.randint( 2000, 2003) )
+			sql = s.format( TableName, random.randint( 22900, 22999), "dummy", random.randint( 2000, 2003) )
 			con.execute( sql)
 		con.commit()
 		con.close()
@@ -147,6 +147,37 @@ def dbDelete():
 @app.route( "/dbUpdate/")
 def dbupdate():
 	return render_template( "dbupdate.html")
+
+@app.route( "/dbUpdate/", methods=[REQUEST_TYPE])
+def dbupdate2():
+	DB_COL_NAME = 	[ "gakusekiNo", "simei",	"birthYear"]
+	HTML_COL_NAME = [ "namae", 		"simei", 	"year"]
+	strSQL_base = 'update {} set {}="{}", {}={} where {}={}'
+	strSQL_check = 'select * from {} where {}={}'
+	message=""
+	if request.method==REQUEST_TYPE:
+		inNo 	= request.form.get( HTML_COL_NAME[0])
+		inSimei = request.form.get( HTML_COL_NAME[1])
+		inYear 	= request.form.get( HTML_COL_NAME[2])
+		strSQL0 = strSQL_check.format( TableName, DB_COL_NAME[0], inNo)
+		print( "strSQL0:", strSQL0)
+		strSQL = strSQL_base.format( TableName, DB_COL_NAME[1], inSimei, DB_COL_NAME[2],inYear,DB_COL_NAME[0],inNo)
+		print( "strSQL: ", strSQL)
+		try:
+			con = sqlite3.connect( DBname)
+			cur = con.cursor()
+			cur.execute( strSQL0)
+			if cur.fetchone()==None:
+				message = "該当するデータが存在しない"
+				print( message)
+			else:
+				con.execute( strSQL)
+				con.commit()
+				message="データベースの更新が完了しました"
+				con.close()
+		except sqlite3.DatabaseError :
+			message =  "databsaseの更新ができません"
+	return render_template( "dbupdate.html", msg=message)
 
 if __name__ == "__main__":
 	app.run( port=8000, debug=True)
