@@ -11,6 +11,24 @@
 	<header>
 		<div><a href="/">Goto TopPage.</a></div>
 	</header>
+	<main>
+		<form action="/dbUpdate/" method="post">
+			<div>
+				<label for="namae">学籍番号</label>
+				<input type="text" name="namae">
+			</div>
+			<div>
+				<label for="simei">氏名</label>
+				<input type="text" name="simei">
+			</div>
+			<div>
+				<label for="year">生まれた年</label>
+				<input type="text" name="year">
+			</div>
+			<input type="submit" value="更新">
+		</form>
 	
+	</main>
+	<p>{{msg}}</p>	
 </body>
 </html>
