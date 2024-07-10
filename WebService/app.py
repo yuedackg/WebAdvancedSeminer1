@@ -142,11 +142,27 @@ def dbDelete():
 										# テーブルの状態のリストlines埋める
 	return render_template( "dbdelete.html", msg="deleted!", lines=lines)
 
+def getList():
+	statement = 'select * from {} '.format( TableName)
+	list = []
+
+	con = sqlite3.connect( DBname)
+	cur = con.cursor()
+	cur.execute( statement)
+
+	for item in cur.fetchall():
+		line = []
+		for it in item :
+			line.append( it)
+		list.append( line)
+	print( list)
+	return list
 
 
 @app.route( "/dbUpdate/")
 def dbupdate():
-	return render_template( "dbupdate.html")
+	list = getList()
+	return render_template( "dbupdate.html", msg="", lines=list)
 
 @app.route( "/dbUpdate/", methods=[REQUEST_TYPE])
 def dbupdate2():
@@ -177,7 +193,8 @@ def dbupdate2():
 				con.close()
 		except sqlite3.DatabaseError :
 			message =  "databsaseの更新ができません"
-	return render_template( "dbupdate.html", msg=message)
+	list = getList()
+	return render_template( "dbupdate.html", msg=message, lines=list)
 
 if __name__ == "__main__":
 	app.run( port=8000, debug=True)

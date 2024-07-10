@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
 	<link rel="stylesheet" href="{{url_for( 'static', filename='style.css')}}">
 
 </head>
+
 <body>
 	<header>
 		<div><a href="/">Goto TopPage.</a></div>
@@ -14,6 +16,17 @@
 	<!-- 7月5日以下の修正箇所 -->
 	<main>
 		<form action="/dbUpdate/" method="post">
+			<table>
+				{% for line in lines %}
+				<tr>
+					{% for item in line %}
+					<td>{{item}}</td>
+					{% endfor %}
+					<td><input type="checkbox" name="{{line[0]}}"></td>
+				</tr>
+				{% endfor %}
+			</table>
+
 			<div>
 				<label for="namae">学籍番号</label>
 				<input type="text" name="namae">
@@ -28,8 +41,9 @@
 			</div>
 			<input type="submit" value="更新">
 		</form>
-	
+
 	</main>
-	<p>{{msg}}</p>	
+	<p>{{msg}}</p>
 </body>
+
 </html>
