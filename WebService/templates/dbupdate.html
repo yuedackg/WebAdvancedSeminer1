@@ -6,7 +6,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 	<link rel="stylesheet" href="{{url_for( 'static', filename='style.css')}}">
+	<link rel="stylesheet" href="{{url_for( 'static', filename='table.css')}}">
+	<style>
+		.updateItem label{
+			display: inline-block;
+			width: 10ex;
 
+		}
+	</style>
 </head>
 
 <body>
@@ -17,27 +24,29 @@
 	<main>
 		<form action="/dbUpdate/" method="post">
 			<table>
+				<thead>
+					<th class="colNo">学籍番号</th>
+					<th class="colName">氏名</th>
+					<th class="colYear">生まれた年</th>
+					<th class="colTarget">更新対象</th>
+				</thead>
 				{% for line in lines %}
 				<tr>
-					{% for item in line %}
-					<td>{{item}}</td>
-					{% endfor %}
-					<td><input type="checkbox" name="{{line[0]}}"></td>
+					<td class="colNo">{{line[0]}}</td>
+					<td class="colName">{{line[1]}}</td>
+					<td class="colYear">{{line[2]}}</td>	
+					<td class="colCheck"><input type="checkbox" name="{{line[0]}}" class="colCheckboxItem"></td>
 				</tr>
 				{% endfor %}
 			</table>
-
-			<div>
-				<label for="namae">学籍番号</label>
-				<input type="text" name="namae">
-			</div>
-			<div>
+			
+			<div class="updateItem">
 				<label for="simei">氏名</label>
 				<input type="text" name="simei">
 			</div>
-			<div>
+			<div class="updateItem">
 				<label for="year">生まれた年</label>
-				<input type="text" name="year">
+				<input type="text" name="year" >
 			</div>
 			<input type="submit" value="更新">
 		</form>

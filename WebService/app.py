@@ -172,27 +172,46 @@ def dbupdate2():
 	strSQL_check = 'select * from {} where {}={}'
 	message=""
 	if request.method==REQUEST_TYPE:
-		inNo 	= request.form.get( HTML_COL_NAME[0])
+		reqvar = request.form.to_dict()
+		print( "reqvasr:", reqvar)
+		inNo = None
+		inSimei = None
+		inYear = None
+		for item in reqvar:
+			if reqvar[item] == 'on':
+				inNo = item
+		# inNo 	= request.form.get( HTML_COL_NAME[0])
 		inSimei = request.form.get( HTML_COL_NAME[1])
 		inYear 	= request.form.get( HTML_COL_NAME[2])
-		strSQL0 = strSQL_check.format( TableName, DB_COL_NAME[0], inNo)
-		print( "strSQL0:", strSQL0)
-		strSQL = strSQL_base.format( TableName, DB_COL_NAME[1], inSimei, DB_COL_NAME[2],inYear,DB_COL_NAME[0],inNo)
-		print( "strSQL: ", strSQL)
-		try:
-			con = sqlite3.connect( DBname)
-			cur = con.cursor()
-			cur.execute( strSQL0)
-			if cur.fetchone()==None:
-				message = "該当するデータが存在しない"
-				print( message)
-			else:
-				con.execute( strSQL)
-				con.commit()
-				message="データベースの更新が完了しました"
-				con.close()
-		except sqlite3.DatabaseError :
-			message =  "databsaseの更新ができません"
+		
+		if inNo != None:
+			strSQL0 = strSQL_check.format( TableName, DB_COL_NAME[0], inNo)
+			print( "strSQL0:", strSQL0)
+			strSQL = strSQL_base.format( TableName, DB_COL_NAME[1], inSimei, DB_COL_NAME[2],inYear,DB_COL_NAME[0],inNo)
+
+			try:
+				con = sqlite3.connect( DBname)
+				cur = con.cursor()
+				cur.execute( strSQL0)
+				if cur.fetchone()==None:
+					message = "該当するデータが存在しない"
+					print( message)
+				else:
+					print( "inSimei:", inSimei)
+					print( "inYear:", inYear)
+					if inSimei == "" or inYear == "":
+						message = "更新パラメータに空白が指定されました"
+						print( message)
+					else:
+						print( "strSQL: ", strSQL)
+						con.execute( strSQL)
+						con.commit()
+						message="データベースの更新が完了しました"
+					con.close()
+			except sqlite3.DatabaseError :
+				message =  "databsaseの更新ができません"
+		else:
+			message = "学籍番号が指定されていません"
 	list = getList()
 	return render_template( "dbupdate.html", msg=message, lines=list)
 
