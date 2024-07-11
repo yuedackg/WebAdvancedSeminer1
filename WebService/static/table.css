@@ -1,0 +1,35 @@
+
+table,tr,td,thead,th{
+	border: solid 1px black;
+	
+}
+table {
+	border-collapse: collapse;
+}
+
+.colNo{
+	width: 10ex;
+	text-align: center;
+}
+.colName{
+	width: 20ex;
+	padding-left: 1ex;
+}
+.colYear{
+	width: 10ex;
+	text-align: center;
+
+}
+.colTarget{
+	width: 8ex;
+	text-align: center;
+
+}
+.colCheck{
+	text-align: center;
+	
+}
+.colCheckboxItem{
+	/* display: inline-block; */
+	justify-content: space-between;
+}
